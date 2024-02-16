@@ -1,12 +1,12 @@
 {
-  "name": "blink-bliss",
+  "name": "20-20-20-refresh",
   "version": "1.0.0",
   "description": "An application that helps with eye care and reminders.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder build --windows"
   },
   "keywords": [],
   "author": "Rahul Jain",
@@ -35,12 +35,12 @@
       "target": [
         "nsis"
       ],
-      "icon": "C:\\Rahul\\Code\\eye-care-app\\icon\\ico.ico"
+      "icon": "./icon/ico.ico"
     },
     "nsis": {
       "oneClick": false,
-      "installerIcon": "C:\\Rahul\\Code\\eye-care-app\\icon\\ico.ico",
-      "uninstallerIcon": "C:\\Rahul\\Code\\eye-care-app\\icon\\ico.ico",
+      "installerIcon": "./icon/ico.ico",
+      "uninstallerIcon": "./icon/ico.ico",
       "uninstallDisplayName": "blink-bliss",
       "license": "LICENSE",
       "allowToChangeInstallationDirectory": true
