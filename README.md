@@ -34,4 +34,10 @@ You can download the executable file for the 20-20-20 Rule Reminder application 
 
 Incorporating the 20-20-20 rule into your daily routine can contribute to maintaining good eye health and reducing the negative effects of prolonged screen time. Use the 20-20-20 Rule Reminder application to make it easier to follow this simple yet beneficial guideline and prioritize your eye care.
 
+## Attribution
+
+The eye icon used in this project is made by [Anggara](https://www.freepik.com/icon/eye_9458529) from [Freepik](https://www.freepik.com), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+
 **Note:** This application is intended as a helpful reminder and should not replace regular eye care or professional medical advice. If you experience persistent or severe eye discomfort, please consult an eye care specialist.
+
+
