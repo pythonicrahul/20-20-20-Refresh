@@ -42,7 +42,7 @@
       "installerIcon": "C:\\Rahul\\Code\\eye-care-app\\icon\\ico.ico",
       "uninstallerIcon": "C:\\Rahul\\Code\\eye-care-app\\icon\\ico.ico",
       "uninstallDisplayName": "blink-bliss",
-      "license": "license.md",
+      "license": "LICENSE",
       "allowToChangeInstallationDirectory": true
     }
   }
