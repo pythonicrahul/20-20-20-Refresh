@@ -25,7 +25,7 @@ jobs:
       run: npm install -g electron-builder
 
     - name: Build Electron App for Windows
-      run: npm run electron-builder build --windows
+      run: electron-builder build --windows
 
     - name: Archive dist folder
       uses: actions/upload-artifact@v2
