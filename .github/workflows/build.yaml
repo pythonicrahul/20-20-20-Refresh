@@ -32,5 +32,3 @@ jobs:
       with:
         name: dist-windows  # Name of the artifact
         path: dist          # Path to the folder you want to archive and store as an artifact
-
-        
