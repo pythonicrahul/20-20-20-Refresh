@@ -7,16 +7,17 @@ let intervalId;
 
 // Function to display a notification with emoji and play a beep sound
 const displayNotificationAndBeep = (title, message) => {
+    const iconPath = path.join(__dirname, 'media', 'icon.png');
     const notification = new Notification({
         title,
         body: message,
-        icon: 'C:\\Rahul\\Code\\eye-care-app\\media\\icon.png',
+        icon: iconPath,
         silent: true,
     });
 
     notification.show();
 
-    const beepPath = "C:\\Rahul\\Code\\eye-care-app\\media\\bubble.wav";
+    const beepPath = path.join(__dirname, 'media', 'bubble.wav');
     sound.play(beepPath, 1.0); // Adjust volume if necessary
 }
 
@@ -32,7 +33,7 @@ const createWindow = () => {
         },
     });
 
-    mainWindow.loadFile('index.html');
+    mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
     mainWindow.webContents.on('did-finish-load', () => {
         mainWindow.webContents.send('window-loaded');
@@ -101,5 +102,3 @@ const updateTimer = () => {
 
     startTimer();
 };
-
-
