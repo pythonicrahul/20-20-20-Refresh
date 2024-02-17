@@ -41,7 +41,7 @@
       "oneClick": false,
       "installerIcon": "./icon/ico.ico",
       "uninstallerIcon": "./icon/ico.ico",
-      "uninstallDisplayName": "blink-bliss",
+      "uninstallDisplayName": "20-20-20-refresh",
       "license": "LICENSE",
       "allowToChangeInstallationDirectory": true
     }

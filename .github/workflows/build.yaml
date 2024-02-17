@@ -30,5 +30,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: windows-executable  # Specify the name for the artifact
-          path: ./dist/*  # Specify the path to the built executable or files
+          name: windows-executable
+          path: dist/20-20-20-refresh Setup 1.0.0.exe
