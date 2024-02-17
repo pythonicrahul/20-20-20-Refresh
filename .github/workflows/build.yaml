@@ -1,4 +1,4 @@
-name: Build and Deploy Windows App
+name: Update Release Assets
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
-    runs-on: windows-latest
+  update_release_assets:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 20
+          node-version: 14
 
       - name: Install dependencies
         run: npm install
@@ -27,30 +27,36 @@ jobs:
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: windows-executable
-          path: dist/20-20-20-refresh Setup 1.0.0.exe
+      - name: List Release Assets
+        id: list_assets
+        run: |
+          ASSETS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/tags/v1.0.0/assets)
+          echo "::set-output name=assets::$ASSETS"
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-            tag_name: v1.0.0
-            release_name: Release v1.0.0
-            body: Release notes for v1.0.0
-            draft: false
-            prerelease: false
+      - name: Determine If Asset Exists
+        id: asset_exists
+        run: |
+          if echo "${{ steps.list_assets.outputs.assets }}" | grep -q "20-20-20-refresh Setup 1.0.0.exe"; then
+            echo "Asset exists."
+            echo "::set-output name=asset_exists::true"
+          else
+            echo "Asset does not exist."
+            echo "::set-output name=asset_exists::false"
+          fi
 
-      - name: Upload Release Asset
+      - name: Delete Existing Asset
+        if: steps.asset_exists.outputs.asset_exists == 'true'
+        run: |
+          ASSET_ID=$(echo "${{ steps.list_assets.outputs.assets }}" | jq -r '.[] | select(.name == "20-20-20-refresh Setup 1.0.0.exe").id')
+          curl -X DELETE -H "Authorization: token ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/releases/assets/${ASSET_ID}"
+
+      - name: Upload New Asset
+        if: steps.asset_exists.outputs.asset_exists == 'false'
         uses: actions/upload-release-asset@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: dist/20-20-20-refresh Setup 1.0.0.exe
-            asset_name: 20-20-20-refresh Setup 1.0.0.exe
-            asset_content_type: application/octet-stream
+          upload_url: https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.list_assets.outputs.release_id }}/assets?name=20-20-20-refresh Setup 1.0.0.exe
+          asset_path: dist/20-20-20-refresh Setup 1.0.0.exe
+          asset_name: 20-20-20-refresh Setup 1.0.0.exe
+          asset_content_type: application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
