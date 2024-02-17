@@ -27,8 +27,3 @@ jobs:
     - name: Build Electron App for Windows
       run: electron-builder build --windows
 
-    - name: Archive dist folder
-      uses: actions/upload-artifact@v2
-      with:
-        name: dist-windows  # Name of the artifact
-        path: dist          # Path to the folder you want to archive and store as an artifact
