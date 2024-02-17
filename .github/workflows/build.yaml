@@ -25,10 +25,10 @@ jobs:
         run: npm install -g electron-builder
 
       - name: Build Electron App for Windows
-        run: electron-builder build --windows
+        run: electron-builder build --windows --publish never
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./dist
+    #   - name: Deploy to GitHub Pages
+    #     uses: peaceiris/actions-gh-pages@v3
+    #     with:
+    #       github_token: ${{ secrets.GH_TOKEN }}
+    #       publish_dir: ./dist
