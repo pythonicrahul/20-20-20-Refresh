@@ -54,4 +54,3 @@ jobs:
             asset_path: dist/20-20-20-refresh Setup 1.0.0.exe
             asset_name: 20-20-20-refresh Setup 1.0.0.exe
             asset_content_type: application/octet-stream
-
