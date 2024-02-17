@@ -27,8 +27,8 @@ jobs:
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./dist
+          name: windows-executable  # Specify the name for the artifact
+          path: ./dist/*  # Specify the path to the built executable or files
