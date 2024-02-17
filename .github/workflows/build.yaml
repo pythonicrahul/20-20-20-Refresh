@@ -1,4 +1,4 @@
-name: Build Windows App
+name: Build and Deploy Windows App
 
 on:
   push:
@@ -6,24 +6,30 @@ on:
       - main  # Adjust the branch as per your requirements
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: windows-latest  # Specify the operating system for the build
-    
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 20  # Adjust the Node.js version as per your requirements
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # Adjust the Node.js version as per your requirements
 
-    - name: Install dependencies
-      run: npm install  # Make sure this installs all required dependencies
+      - name: Install dependencies
+        run: npm install  # Make sure this installs all required dependencies
 
-    - name: Install Electron Builder
-      run: npm install -g electron-builder
+      - name: Install Electron Builder
+        run: npm install -g electron-builder
 
-    - name: Build Electron App for Windows
-      run: electron-builder build --windows
+      - name: Build Electron App for Windows
+        run: electron-builder build --windows
 
+      # Add deployment steps to publish to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./dist  # Specify the directory where your built files are located
