@@ -1,4 +1,4 @@
-name: Update Release Assets
+name: Build and Deploy Windows App
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  update_release_assets:
-    runs-on: ubuntu-latest
+  build_and_deploy:
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -27,36 +27,9 @@ jobs:
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
 
-      - name: List Release Assets
-        id: list_assets
-        run: |
-          ASSETS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/tags/v1.0.0/assets)
-          echo "::set-output name=assets::$ASSETS"
-
-      - name: Determine If Asset Exists
-        id: asset_exists
-        run: |
-          if echo "${{ steps.list_assets.outputs.assets }}" | grep -q "20-20-20-refresh Setup 1.0.0.exe"; then
-            echo "Asset exists."
-            echo "::set-output name=asset_exists::true"
-          else
-            echo "Asset does not exist."
-            echo "::set-output name=asset_exists::false"
-          fi
-
-      - name: Delete Existing Asset
-        if: steps.asset_exists.outputs.asset_exists == 'true'
-        run: |
-          ASSET_ID=$(echo "${{ steps.list_assets.outputs.assets }}" | jq -r '.[] | select(.name == "20-20-20-refresh Setup 1.0.0.exe").id')
-          curl -X DELETE -H "Authorization: token ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/releases/assets/${ASSET_ID}"
-
-      - name: Upload New Asset
-        if: steps.asset_exists.outputs.asset_exists == 'false'
-        uses: actions/upload-release-asset@v1
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
         with:
-          upload_url: https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.list_assets.outputs.release_id }}/assets?name=20-20-20-refresh Setup 1.0.0.exe
-          asset_path: dist/20-20-20-refresh Setup 1.0.0.exe
-          asset_name: 20-20-20-refresh Setup 1.0.0.exe
-          asset_content_type: application/octet-stream
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          name: windows-executable
+          path: dist/20-20-20-refresh Setup 1.0.0.exe
+
