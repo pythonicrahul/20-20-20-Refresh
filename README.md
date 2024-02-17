@@ -1,7 +1,7 @@
 
 # 20-20-20 Refresh
 
-![20-20-20 Rule Reminder Logo](https://raw.githubusercontent.com/pythonicrahul/20-20-20-Refresh/main/media/readme_logo.png)
+![20-20-20 Rule Reminder Logo](https://github.com/pythonicrahul/20-20-20-Refresh/actions/runs/7941662673/artifacts/1253420109)
 
 Welcome to the 20-20-20 Rule Reminder!
 
