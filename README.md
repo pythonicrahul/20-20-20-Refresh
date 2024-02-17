@@ -1,7 +1,7 @@
 
 # 20-20-20 Refresh
 
-![20-20-20 Rule Reminder Logo](https://github.com/pythonicrahul/20-20-20-Refresh/actions/runs/7941662673/artifacts/1253420109)
+![20-20-20 Rule Reminder Logo](https://raw.githubusercontent.com/pythonicrahul/20-20-20-Refresh/main/media/readme_logo.png)
 
 Welcome to the 20-20-20 Rule Reminder!
 
@@ -19,7 +19,7 @@ This application is designed to remind you to take breaks according to the 20-20
 
 ## Download
 
-You can download the executable file for the 20-20-20 Rule Reminder application [here](https://github.com/pythonicrahul/20-20-20-Refresh/releases/download/v1.0.0/20-20-20-refresh.Setup.1.0.0.exe).
+You can download the executable file for the 20-20-20 Rule Reminder application [here](https://github.com/pythonicrahul/20-20-20-Refresh/actions/runs/7941662673/artifacts/1253420109).
 
 ## How to Use
 
