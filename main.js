@@ -33,7 +33,7 @@ const createWindow = () => {
         },
     });
 
-    mainWindow.loadFile(path.join(__dirname, 'ui', 'index.html'));
+    mainWindow.loadFile(path.join(__dirname, 'ui', 'main.html'));
 
     mainWindow.webContents.on('did-finish-load', () => {
         mainWindow.webContents.send('window-loaded');
