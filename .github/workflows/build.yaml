@@ -23,6 +23,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install wine
           sudo apt-get install libwine
+          sudo apt install osslsigncode
 
       - name: Install Wine32 with Multiarch
         run: |
@@ -38,6 +39,14 @@ jobs:
 
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
+
+      - name: Sign EXE
+        run: |
+          osslsigncode sign \
+            -certs ${{ secrets.CODESIGN_CERT }} \
+            -key ${{ secrets.CODESIGN_KEY }} \
+            -in "dist/20-20-20-refresh Setup 1.0.0.exe" \
+            -out "dist/signed-20-20-20-refresh Setup 1.0.0.exe"
 
       - name: Upload
         uses: BetaHuhn/do-spaces-action@v2
