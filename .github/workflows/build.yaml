@@ -39,6 +39,9 @@ jobs:
           aws configure set profile.20-20-20.s3.endpoint https://20-20-20.blr1.digitaloceanspaces.com
           aws configure set profile.20-20-20.s3.signature_version s3v4
           aws configure set profile.20-20-20.credential_source environment
+          aws configure set aws_access_key_id ${{ secrets.DO_ACCESS_KEY_ID }} --profile 20-20-20
+          aws configure set aws_secret_access_key ${{ secrets.DO_SECRET_ACCESS_KEY }} --profile 20-20-20
+          aws configure set region blr1 --profile 20-20-20
           aws s3 cp "dist/20-20-20-refresh Setup 1.0.0.exe" s3://20-20-20/app.exe --acl public-read --profile 20-20-20
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
