@@ -19,7 +19,7 @@ This application is designed to remind you to take breaks according to the 20-20
 
 ## Download
 
-You can download the executable file for the 20-20-20 Rule Reminder application [here](https://github.com/pythonicrahul/20-20-20-Refresh/actions/runs/7943597083/artifacts/1253678750).
+You can download the executable file for the 20-20-20 Rule Reminder application [here](https://drive.google.com/uc?export=download&id=1bT3CfMjuGvkmM6L4HyIqBFy1PuYxqArS).
 
 ## How to Use
 
