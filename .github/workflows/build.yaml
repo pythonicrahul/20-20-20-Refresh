@@ -27,16 +27,25 @@ jobs:
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
 
-      - name: Upload to DigitalOcean Spaces
+      - name: Upload file to DigitalOcean Spaces
         run: |
-          curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" --header "Authorization: AWS $env:DO_ACCESS_KEY_ID:$env:DO_SECRET_ACCESS_KEY" --header "x-amz-storage-class: $env:DO_STORAGE_CLASS" --header "x-amz-acl: $env:DO_ACL" "https://$env:DO_SPACE.$env:DO_REGION.digitaloceanspaces.com"
+          aws s3 sync dist/ s3://20-20-20 --region blr1 \
+            --access-key-id ${{ secrets.DO_ACCESS_KEY_ID }} \
+            --secret-access-key ${{ secrets.DO_SECRET_ACCESS_KEY }}
         env:
-          DO_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
-          DO_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
-          DO_REGION: "blr1"
-          DO_SPACE: "20-20-20"
-          DO_STORAGE_CLASS: "STANDARD"
-          DO_ACL: "public-read" 
+          DO_SPACE_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
+          DO_SPACE_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
+
+      # - name: Upload to DigitalOcean Spaces
+      #   run: |
+      #     curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" --header "Authorization: AWS $env:DO_ACCESS_KEY_ID:$env:DO_SECRET_ACCESS_KEY" --header "x-amz-storage-class: $env:DO_STORAGE_CLASS" --header "x-amz-acl: $env:DO_ACL" "https://$env:DO_SPACE.$env:DO_REGION.digitaloceanspaces.com"
+      #   env:
+      #     DO_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
+      #     DO_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
+      #     DO_REGION: "blr1"
+      #     DO_SPACE: "20-20-20"
+      #     DO_STORAGE_CLASS: "STANDARD"
+      #     DO_ACL: "public-read" 
 
 
       # - name: Upload to DigitalOcean Spaces
