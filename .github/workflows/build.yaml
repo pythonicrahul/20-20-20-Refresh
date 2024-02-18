@@ -29,7 +29,7 @@ jobs:
 
       - name: Upload to DigitalOcean Spaces
         run: |
-          curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" --header "Authorization: Bearer ${{ secrets.DO_TOKEN }}" "https://20-20-20.blr1.digitaloceanspaces.com/app.exe"
+          curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" --header "Authorization: Bearer ${{ secrets.DO_TOKEN }}" "https://20-20-20.blr1.digitaloceanspaces.com"
         env:
           DO_ACCESS_TOKEN: ${{ secrets.DO_TOKEN }}
 
