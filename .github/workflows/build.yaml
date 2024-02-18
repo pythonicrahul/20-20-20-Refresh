@@ -35,10 +35,15 @@ jobs:
 
       - name: Upload to DigitalOcean Spaces
         run: |
-          aws s3 cp "dist/20-20-20-refresh Setup 1.0.0.exe" s3://20-20-20/app.exe --acl public-read
+          aws configure set profile.20-20-20
+          aws configure set profile.20-20-20.region blr1
+          aws configure set profile.20-20-20.s3.endpoint https://20-20-20.blr1.digitaloceanspaces.com
+          aws configure set profile.20-20-20.s3.force_path_style true
+          aws configure set profile.20-20-20.s3.signature_version s3v4
+          aws configure set profile.20-20-20.credential_source "environment"
+          aws s3 cp "dist/20-20-20-refresh Setup 1.0.0.exe" s3://20-20-20/app.exe --acl public-read --profile 20-20-20
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
-          AWS_REGION: BLR1
-
+          AWS_REGION: blr1
           
