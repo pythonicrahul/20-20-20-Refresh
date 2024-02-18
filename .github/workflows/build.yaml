@@ -22,7 +22,7 @@ jobs:
         run: | 
           sudo apt-get update
           sudo apt-get install wine
-          sudo apt-get install wine32
+          sudo apt-get install libwine
 
       - name: Install dependencies
         run: npm install
