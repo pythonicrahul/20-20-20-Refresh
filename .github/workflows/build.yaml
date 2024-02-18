@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload to DigitalOcean Spaces
         run: |
-          aws s3 cp dist/20-20-20-refresh Setup 1.0.0.exe s3://20-20-20/ --acl public-read
+          aws s3 cp "dist/20-20-20-refresh Setup 1.0.0.exe" s3://20-20-20/app.exe --acl public-read
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
