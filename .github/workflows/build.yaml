@@ -33,9 +33,7 @@ jobs:
       - name: Upload file to DigitalOcean Spaces
         
         run: |
-          aws s3 sync dist/ s3://20-20-20 --region blr1 \
-            --access-key-id ${{ secrets.DO_ACCESS_KEY_ID }} \
-            --secret-access-key ${{ secrets.DO_SECRET_ACCESS_KEY }}
+          aws s3 sync dist/ s3://20-20-20 --region blr1 --access-key-id ${{ secrets.DO_ACCESS_KEY_ID }} --secret-access-key ${{ secrets.DO_SECRET_ACCESS_KEY }}
         env:
           DO_SPACE_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
           DO_SPACE_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
