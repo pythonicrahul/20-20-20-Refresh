@@ -40,10 +40,20 @@ jobs:
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
 
+      - name: Creating Files
+        uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "cert.pem"
+          FILE_DATA: ${{ secrets.CODESIGN_CERT }}
+          
+      - name: Creating Files
+        uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "key.pem"
+          FILE_DATA: ${{ secrets.CODESIGN_KEY }}
+
       - name: Sign EXE
         run: |
-          echo ${{ secrets.CODESIGN_CERT }} > cert.pem
-          echo ${{ secrets.CODESIGN_KEY }} > key.pem
           osslsigncode sign -certs cert.pem -key key.pem -in "dist/20-20-20-refresh Setup 1.0.0.exe" -out "dist/signed-20-20-20-refresh Setup 1.0.0.exe"
 
       - name: Upload
@@ -56,4 +66,3 @@ jobs:
           source: dist/20-20-20-refresh Setup 1.0.0.exe
           out_dir: application
 
-          
