@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -26,17 +26,26 @@ jobs:
 
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
-      
-      - name: Install aws CLI tools with Chocolatey
-        run: choco install awscli -y  
 
-      - name: Upload file to DigitalOcean Spaces
+      - name: Upload
+        uses: BetaHuhn/do-spaces-action@v2
+        with:
+          access_key: ${{ secrets.DO_ACCESS_KEY_ID}}
+          secret_key: ${{ secrets.DO_SECRET_ACCESS_KEY }}
+          space_name: 20-20-20
+          space_region: blr1
+          source: dist/
+      
+      # - name: Install aws CLI tools with Chocolatey
+      #   run: choco install awscli -y  
+
+      # - name: Upload file to DigitalOcean Spaces
         
-        run: |
-          aws s3 sync dist/ s3://20-20-20 --region blr1 --access-key-id ${{ secrets.DO_ACCESS_KEY_ID }} --secret-access-key ${{ secrets.DO_SECRET_ACCESS_KEY }}
-        env:
-          DO_SPACE_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
-          DO_SPACE_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
+      #   run: |
+      #     aws s3 sync dist/ s3://20-20-20 --region blr1 --access-key-id ${{ secrets.DO_ACCESS_KEY_ID }} --secret-access-key ${{ secrets.DO_SECRET_ACCESS_KEY }}
+      #   env:
+      #     DO_SPACE_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
+      #     DO_SPACE_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
 
       # - name: Upload to DigitalOcean Spaces
       #   run: |
