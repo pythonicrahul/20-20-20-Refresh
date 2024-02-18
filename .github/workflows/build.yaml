@@ -57,5 +57,3 @@ jobs:
           space_region: blr1
           source: dist/20-20-20-refresh Setup 1.0.0.exe
           out_dir: application
-
-          
