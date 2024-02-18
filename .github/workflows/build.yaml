@@ -32,4 +32,16 @@ jobs:
         with:
           name: windows-executable
           path: dist/20-20-20-refresh Setup 1.0.0.exe
+            
+      - name: Upload to DigitalOcean Spaces
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --delete
+        env:
+          AWS_S3_BUCKET: 20-20-20
+          AWS_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
+          AWS_REGION: BLR1
+          SOURCE_DIR: dist/20-20-20-refresh\ Setup\ 1.0.0.exe
+
 
