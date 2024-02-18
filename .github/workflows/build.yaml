@@ -42,7 +42,9 @@ jobs:
 
       - name: Sign EXE
         run: |
-          osslsigncode sign -certs ${{ secrets.CODESIGN_CERT }} -key ${{ secrets.CODESIGN_KEY }} -in "dist/20-20-20-refresh Setup 1.0.0.exe" -out "dist/signed-20-20-20-refresh Setup 1.0.0.exe"
+          echo ${{ secrets.CODESIGN_CERT }} > cert.pem
+          echo ${{ secrets.CODESIGN_KEY }} > key.pem
+          osslsigncode sign -certs cert.pem -key key.pem -in "dist/20-20-20-refresh Setup 1.0.0.exe" -out "dist/signed-20-20-20-refresh Setup 1.0.0.exe"
 
       - name: Upload
         uses: BetaHuhn/do-spaces-action@v2
