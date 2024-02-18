@@ -43,7 +43,7 @@ jobs:
       - name: Creating Files
         uses: "finnp/create-file-action@master"
         env:
-          FILE_NAME: "cert.pem"
+          FILE_NAME: "cert.cert"
           FILE_DATA: ${{ secrets.CODESIGN_CERT }}
           
       - name: Creating Files
@@ -54,7 +54,7 @@ jobs:
 
       - name: Sign EXE
         run: |
-          osslsigncode sign -certs cert.pem -key key.pem -in "dist/20-20-20-refresh Setup 1.0.0.exe" -out "dist/signed-20-20-20-refresh Setup 1.0.0.exe"
+          osslsigncode sign -certs cert.cert -key key.pem -in "dist/20-20-20-refresh Setup 1.0.0.exe" -out "dist/signed-20-20-20-refresh Setup 1.0.0.exe"
 
       - name: Upload
         uses: BetaHuhn/do-spaces-action@v2
