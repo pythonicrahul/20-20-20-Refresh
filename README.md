@@ -19,7 +19,7 @@ This application is designed to remind you to take breaks according to the 20-20
 
 ## Download
 
-You can download the executable file for the 20-20-20 Rule Reminder application [here](https://20-20-20.blr1.digitaloceanspaces.com/application/20-20-20-refresh%20Setup%201.0.0.exe).
+You can download the executable file for the 20-20-20 Rule Reminder application [here](https://20-20-20.blr1.digitaloceanspaces.com/application/app.zip).
 
 ## How to Use
 
