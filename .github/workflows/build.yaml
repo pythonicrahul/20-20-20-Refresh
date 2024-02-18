@@ -29,57 +29,27 @@ jobs:
 
       - name: Upload to DigitalOcean Spaces
         run: |
-          $space = "nyc-tutorial-space"
-          $region = "nyc3"
-          $storageType = "STANDARD"
-          $key = "5SGMECSBJ6UPVC2AJ6B4"
-          $secret = "${{ secrets.DO_TOKEN }}"
-
-          function putS3 {
-            param (
-              [string]$path,
-              [string]$file,
-              [string]$spacePath,
-              [string]$space,
-              [string]$region,
-              [string]$storageType,
-              [string]$key,
-              [string]$secret
-            )
-
-            $date = Get-Date -Format "ddd, dd MMM yyyy HH:mm:ss zzz"
-            $acl = "x-amz-acl:public-read"
-            $contentType = "text/plain"
-            $storageTypeHeader = "x-amz-storage-class:$storageType"
-            $stringToSign = "PUT`n`n$contentType`n$date`n$acl`n$storageTypeHeader`n/$space$spacePath$file"
-            $signature = New-Object System.Security.Cryptography.HMACSHA1
-            $signature.Key = [Convert]::FromBase64String($secret)
-            $hashBytes = $signature.ComputeHash([Text.Encoding]::UTF8.GetBytes($stringToSign))
-            $signature = [Convert]::ToBase64String($hashBytes)
-
-            $headers = @{
-              "Host" = "$space.$region.digitaloceanspaces.com"
-              "Date" = "$date"
-              "Content-Type" = "$contentType"
-              $storageTypeHeader = "$storageType"
-              $acl = "$acl"
-              "Authorization" = "AWS $key:$signature"
-            }
-
-            Invoke-RestMethod -Uri "https://$space.$region.digitaloceanspaces.com$spacePath$file" -Method Put -Headers $headers -InFile "$path\$file"
-          }
-
-          foreach ($file in Get-ChildItem -Path "dist" -Filter "*.exe") {
-            putS3 -path "dist" -file $file.Name -spacePath "/" -space $space -region $region -storageType $storageType -key $key -secret $secret
-          }
+          curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" \
+              --header "Authorization: AWS $DO_ACCESS_KEY_ID:$DO_SECRET_ACCESS_KEY" \
+              --header "x-amz-storage-class: $DO_STORAGE_CLASS" \
+              --header "x-amz-acl: $DO_ACL" \
+              "https://$DO_SPACE.$DO_REGION.digitaloceanspaces.com/app.exe"
         env:
-          DO_TOKEN: ${{ secrets.DO_TOKEN }}
+          DO_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
+          DO_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
+          DO_REGION: "blr1"
+          DO_SPACE: "20-20-20"
+          DO_STORAGE_CLASS: "STANDARD"
+          DO_ACL: "public-read" 
+
 
       # - name: Upload to DigitalOcean Spaces
       #   run: |
       #     curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" --header "Authorization: Bearer ${{ secrets.DO_TOKEN }}" "https://20-20-20.blr1.digitaloceanspaces.com"
       #   env:
       #     DO_ACCESS_TOKEN: ${{ secrets.DO_TOKEN }}
+
+      
 
       # - name: Upload Artifact
       #   uses: actions/upload-artifact@v2
