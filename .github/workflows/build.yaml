@@ -29,7 +29,7 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt update
           sudo apt install wine32
-          
+
       - name: Install dependencies
         run: npm install
 
@@ -46,7 +46,8 @@ jobs:
           secret_key: ${{ secrets.DO_SECRET_ACCESS_KEY }}
           space_name: 20-20-20
           space_region: blr1
-          source: dist/
+          source: dist/20-20-20-refresh Setup 1.0.0.exe
+          out_dir: application
       
       # - name: Install aws CLI tools with Chocolatey
       #   run: choco install awscli -y  
