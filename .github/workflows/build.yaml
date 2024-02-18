@@ -40,29 +40,17 @@ jobs:
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
 
-      - name: Creating Files
-        uses: "finnp/create-file-action@master"
-        env:
-          FILE_NAME: "cert.cert"
-          FILE_DATA: ${{ secrets.CODESIGN_CERT }}
-          
-      - name: Creating Files
-        uses: "finnp/create-file-action@master"
-        env:
-          FILE_NAME: "key.pem"
-          FILE_DATA: ${{ secrets.CODESIGN_KEY }}
-
-      - name: Sign EXE
+      - name: Zip EXE File
         run: |
-          osslsigncode sign -certs cert.cert -key key.pem -in "dist/20-20-20-refresh Setup 1.0.0.exe" -out "dist/signed-20-20-20-refresh Setup 1.0.0.exe"
+          zip dist/app.zip dist/20-20-20-refresh\ Setup\ 1.0.0.exe
 
       - name: Upload
         uses: BetaHuhn/do-spaces-action@v2
         with:
-          access_key: ${{ secrets.DO_ACCESS_KEY_ID}}
+          access_key: ${{ secrets.DO_ACCESS_KEY_ID }}
           secret_key: ${{ secrets.DO_SECRET_ACCESS_KEY }}
           space_name: 20-20-20
           space_region: blr1
-          source: dist/20-20-20-refresh Setup 1.0.0.exe
+          source: dist/app.zip
           out_dir: application
 
