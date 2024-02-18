@@ -29,14 +29,7 @@ jobs:
 
       - name: Upload to DigitalOcean Spaces
         run: |
-          $authorizationHeader = "AWS $($env:DO_ACCESS_KEY_ID):$($env:DO_SECRET_ACCESS_KEY)"
-          $headers = @{
-            "Authorization" = $authorizationHeader
-            "x-amz-storage-class" = $env:DO_STORAGE_CLASS
-            "x-amz-acl" = $env:DO_ACL
-          }
-          $url = "https://$($env:DO_SPACE).$($env:DO_REGION).digitaloceanspaces.com/app.exe"
-          curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" -H $headers $url
+          curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" --header "Authorization: AWS $env:DO_ACCESS_KEY_ID:$env:DO_SECRET_ACCESS_KEY" --header "x-amz-storage-class: $env:DO_STORAGE_CLASS" --header "x-amz-acl: $env:DO_ACL" "https://$env:DO_SPACE.$env:DO_REGION.digitaloceanspaces.com/app.exe"
         env:
           DO_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
           DO_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
