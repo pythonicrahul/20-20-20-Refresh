@@ -27,25 +27,33 @@ jobs:
       - name: Build Electron App for Windows
         run: electron-builder build --windows --publish never
 
+      - name: Upload to DigitalOcean Spaces
+        run: |
+          curl -X PUT -T "dist/20-20-20-refresh Setup 1.0.0.exe" \
+              -H "Authorization: Bearer ${{ secrets.DO_TOKEN }}" \
+              "https://20-20-20.blr1.digitaloceanspaces.com/app.exe"
+        env:
+          DO_ACCESS_TOKEN: ${{ secrets.DO_TOKEN }}
+
       # - name: Upload Artifact
       #   uses: actions/upload-artifact@v2
       #   with:
       #     name: windows-executable
       #     path: dist/20-20-20-refresh Setup 1.0.0.exe
 
-      - name: Upload to DigitalOcean Spaces
-        run: |
-          aws configure set profile.20-20-20.region blr1
-          aws configure set profile.20-20-20.s3.endpoint https://20-20-20.blr1.digitaloceanspaces.com
-          aws configure set profile.20-20-20.s3.signature_version s3v4
-          aws configure set profile.20-20-20.credential_source environment
-          aws configure set aws_access_key_id ${{ secrets.DO_ACCESS_KEY_ID }} --profile 20-20-20
-          aws configure set aws_secret_access_key ${{ secrets.DO_SECRET_ACCESS_KEY }} --profile 20-20-20
-          aws configure set region blr1 --profile 20-20-20
-          aws s3 cp "dist/20-20-20-refresh Setup 1.0.0.exe" s3://20-20-20/app.exe --acl public-read --profile 20-20-20
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
-          AWS_REGION: blr1
+      # - name: Upload to DigitalOcean Spaces
+      #   run: |
+      #     aws configure set profile.20-20-20.region blr1
+      #     aws configure set profile.20-20-20.s3.endpoint https://20-20-20.blr1.digitaloceanspaces.com
+      #     aws configure set profile.20-20-20.s3.signature_version s3v4
+      #     aws configure set profile.20-20-20.credential_source environment
+      #     aws configure set aws_access_key_id ${{ secrets.DO_ACCESS_KEY_ID }} --profile 20-20-20
+      #     aws configure set aws_secret_access_key ${{ secrets.DO_SECRET_ACCESS_KEY }} --profile 20-20-20
+      #     aws configure set region blr1 --profile 20-20-20
+      #     aws s3 cp "dist/20-20-20-refresh Setup 1.0.0.exe" s3://20-20-20/app.exe --acl public-read --profile 20-20-20
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.DO_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SECRET_ACCESS_KEY }}
+      #     AWS_REGION: blr1
 
           
