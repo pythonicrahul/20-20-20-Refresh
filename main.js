@@ -17,8 +17,8 @@ const displayNotificationAndBeep = (title, message) => {
 
     notification.show();
  
-    const beepPath = path.join(__dirname, 'media', 'bubble.wav');
-    sound.play(beepPath, 1.0); // Adjust volume if necessary
+    const beepPath = __dirname + '/../media/bubble.wav'
+    sound.play(beepPath, 1.0);
 }
 
 const createWindow = () => {
