@@ -30,6 +30,7 @@
         ]
       }
     ],
+    "extraResources": ["./media/bubble.wav"],
     "appId": "com.rahulsjain.eye-care",
     "win": {
       "target": [

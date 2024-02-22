@@ -17,8 +17,8 @@ const displayNotificationAndBeep = (title, message) => {
 
     notification.show();
  
-    const beepPath = path.join(__dirname, 'media', 'bubble.wav');
-    sound.play(beepPath, 1.0); // Adjust volume if necessary
+    const beepPath = __dirname + '/../media/bubble.wav'
+    sound.play(beepPath, 1.0);
 }
 
 const createWindow = () => {
@@ -65,7 +65,7 @@ app.on('window-all-closed', function () {
 });
 
 const updateTimer = () => {
-    let minutes = 20;
+    let minutes = 2;
     let seconds = 0;
 
     const startTimer = () => {
