@@ -65,7 +65,7 @@ app.on('window-all-closed', function () {
 });
 
 const updateTimer = () => {
-    let minutes = 2;
+    let minutes = 20;
     let seconds = 0;
 
     const startTimer = () => {
