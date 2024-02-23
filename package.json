@@ -30,7 +30,7 @@
         ]
       }
     ],
-    "extraResources": ["./media/bubble.wav"],
+    "extraResources": ["./media/bubble.wav", "./media/20-20-20-modal.jpg"],
     "appId": "com.rahulsjain.eye-care",
     "win": {
       "target": [
