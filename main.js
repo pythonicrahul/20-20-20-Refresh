@@ -26,6 +26,7 @@ const createWindow = () => {
         width: 500,
         height: 350,
         autoHideMenuBar: true,
+        resizable: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -42,6 +43,25 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
     createWindow();
+
+    // Add auto-start functionality
+    const appName = "20-20-20-refresh";
+
+    // Add the application name to the Windows Registry entry
+    const appExePath = app.getPath('exe');
+    const regCommand = `REG ADD HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v ${appName} /t REG_SZ /d "${appExePath}" /f`;
+
+    require('child_process').exec(regCommand, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error adding Registry entry: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`Error: ${stderr}`);
+            return;
+        }
+        console.log(`Registry entry added successfully: ${stdout}`);
+    });
 
     app.on('activate', function () {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
