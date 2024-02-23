@@ -39,6 +39,7 @@ const closeModal = () => {
 };
 
 window.onload = () => { 
+    localStorage.removeItem('hideModal');
     const shouldShowModal = !localStorage.getItem('hideModal');
     if (shouldShowModal) {
         showModal();
